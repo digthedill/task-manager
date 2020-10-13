@@ -1,24 +1,26 @@
 const mongoose = require("mongoose");
-
-const taskSchema = new mongoose.Schema({
-  description: {
-    trim: true,
-    required: true,
-    type: String,
+const taskSchema = new mongoose.Schema(
+  {
+    description: {
+      trim: true,
+      required: true,
+      type: String,
+    },
+    completed: {
+      type: Boolean,
+      default: false,
+    },
+    owner: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "User",
+    },
   },
-  completed: {
-    type: Boolean,
-    default: false,
-  },
-});
-taskSchema.pre("save", async function (next) {
-  const task = this;
+  {
+    timestamps: true,
+  }
+);
 
-  console.log(task, "before a save");
+const Task = mongoose.model("Task", taskSchema);
 
-  next();
-});
-
-const Tasks = mongoose.model("Tasks", taskSchema);
-
-module.exports = Tasks;
+module.exports = Task;
