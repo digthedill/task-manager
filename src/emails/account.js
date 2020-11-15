@@ -14,9 +14,9 @@ const sendWelcomeEmail = (email, name) => {
   });
 };
 
-const goodbyeEmail = (email, name) => {
+const goodbyeEmail = async (email, name) => {
   console.log("Deleted user email sent");
-  sgMail.send({
+  await sgMail.send({
     to: email,
     from: "digthedill@gmail.com",
     subject: `${name}, you will be missed`,
@@ -24,4 +24,7 @@ const goodbyeEmail = (email, name) => {
   });
 };
 
-module.exports = { sendWelcomeEmail, goodbyeEmail };
+module.exports = {
+  sendWelcomeEmail,
+  goodbyeEmail
+};
